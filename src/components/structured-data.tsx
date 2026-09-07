@@ -1,4 +1,4 @@
-import { coverage, faqs, services, site } from "@/lib/site";
+import { counties, coverage, faqs, services, site, SERVICE_RADIUS_MILES } from "@/lib/site";
 
 /**
  * LocalBusiness plus FAQPage markup for local search.
@@ -41,10 +41,27 @@ export function StructuredData() {
             closes: "18:00",
           },
         ],
-        areaServed: coverage.map((entry) => ({
-          "@type": "AdministrativeArea",
-          name: `${entry.county} County, Tennessee`,
-        })),
+        // A GeoCircle states the radius exactly; the town and county entries
+        // give Google the named places people actually type into a search.
+        areaServed: [
+          {
+            "@type": "GeoCircle",
+            geoMidpoint: {
+              "@type": "GeoCoordinates",
+              latitude: site.geo.lat,
+              longitude: site.geo.lng,
+            },
+            geoRadius: String(Math.round(SERVICE_RADIUS_MILES * 1609.34)),
+          },
+          ...coverage.map((entry) => ({
+            "@type": "City",
+            name: `${entry.town}, Tennessee`,
+          })),
+          ...counties.map((county) => ({
+            "@type": "AdministrativeArea",
+            name: `${county} County, Tennessee`,
+          })),
+        ],
         knowsAbout: services.map((service) => service.name),
         hasOfferCatalog: {
           "@type": "OfferCatalog",
@@ -56,7 +73,7 @@ export function StructuredData() {
               name: service.name,
               description: service.summary,
               serviceType: service.name,
-              areaServed: "Middle Tennessee",
+              areaServed: `${site.address.locality}, Tennessee and surrounding area`,
               provider: { "@id": `${site.url}/#business` },
             },
           })),

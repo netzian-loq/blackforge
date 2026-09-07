@@ -16,9 +16,9 @@ export const site = {
      carries the descriptor — a service business needs the reader to know what
      it does before they know who it is. */
   wordmark: { primary: "Black Forge", secondary: "Asphalt" },
-  tagline: "Asphalt repair, paving and sealcoating across Middle Tennessee",
+  tagline: "Asphalt repair, paving and sealcoating in Wartrace and Bedford County",
   description:
-    "Asphalt repair, paving, pothole repair and sealcoating for homeowners and commercial property owners across Middle Tennessee. Free on-site estimates, written quotes.",
+    "Asphalt repair, paving, pothole repair and sealcoating for homeowners and commercial property owners in Wartrace, Bell Buckle, Shelbyville and the surrounding Bedford County area. Free on-site estimates, written quotes.",
 
   phone: {
     display: "(931) 224-2605",
@@ -36,12 +36,14 @@ export const site = {
   hours: "Mon-Fri 7:00a - 6:00p, Sat by appointment",
   address: {
     // Service-area businesses may omit a street address; Google prefers city/region.
-    locality: "Nashville",
+    locality: "Wartrace",
     region: "TN",
-    postalCode: "37201", // PLACEHOLDER
+    postalCode: "37183", // VERIFY
     country: "US",
   },
-  geo: { lat: 36.1627, lng: -86.7816 }, // Nashville centroid — move to base of operations
+  // Approximate centre of Wartrace. Google reads this to decide which searches
+  // the business is local to, so nudge it to the actual yard or shop.
+  geo: { lat: 35.5273, lng: -86.3336 }, // VERIFY
 
   credentials: [
     "Licensed and insured", // VERIFY
@@ -137,32 +139,39 @@ export const services: readonly Service[] = [
   },
 ] as const;
 
-/** Counties and towns covered, ordered by how much work comes out of each. */
+/** Where the trucks start from. */
+export const base = { town: "Wartrace", county: "Bedford", region: "TN" } as const;
+
+/**
+ * Towns inside the working radius, nearest first.
+ *
+ * VERIFY: `miles` are approximate straight-line distances from Wartrace, not
+ * drive times. They are shown to the visitor as "about", so being a mile out is
+ * harmless — but check them against a map before launch, and add or drop towns
+ * to match the radius actually worked. `SERVICE_RADIUS_MILES` scales the bars
+ * on the coverage board, so keep it at or above the largest distance listed.
+ */
+export const SERVICE_RADIUS_MILES = 12;
+
 export const coverage = [
-  {
-    county: "Davidson",
-    towns: ["Nashville", "Antioch", "Hermitage", "Madison", "Bellevue", "Goodlettsville"],
-  },
-  {
-    county: "Williamson",
-    towns: ["Franklin", "Brentwood", "Nolensville", "Thompsons Station", "Fairview"],
-  },
-  { county: "Rutherford", towns: ["Murfreesboro", "Smyrna", "La Vergne", "Eagleville"] },
-  { county: "Wilson", towns: ["Mt. Juliet", "Lebanon", "Watertown"] },
-  { county: "Sumner", towns: ["Hendersonville", "Gallatin", "Portland", "White House"] },
-  { county: "Maury", towns: ["Columbia", "Spring Hill", "Mount Pleasant"] },
-  { county: "Montgomery", towns: ["Clarksville", "Sango"] },
-  { county: "Robertson", towns: ["Springfield", "Greenbrier", "Coopertown"] },
-  { county: "Cheatham", towns: ["Ashland City", "Pleasant View", "Kingston Springs"] },
-  { county: "Dickson", towns: ["Dickson", "Burns", "White Bluff"] },
+  { town: "Wartrace", county: "Bedford", miles: 0 },
+  { town: "Bell Buckle", county: "Bedford", miles: 5 },
+  { town: "Normandy", county: "Bedford", miles: 7 },
+  { town: "Shelbyville", county: "Bedford", miles: 9 },
+  { town: "Fosterville", county: "Rutherford", miles: 9 },
+  { town: "Beechgrove", county: "Coffee", miles: 10 },
+  { town: "Christiana", county: "Rutherford", miles: 11 },
 ] as const;
+
+/** Counties the radius touches, in the order they first appear above. */
+export const counties: readonly string[] = [...new Set(coverage.map((entry) => entry.county))];
 
 export const propertyTypes = ["Residential", "Commercial"] as const;
 export type PropertyType = (typeof propertyTypes)[number];
 
 export const faqs = [
   {
-    q: "What does asphalt work cost in Middle Tennessee?",
+    q: "What does asphalt work cost around Wartrace?",
     a: "Square footage, how deep the damage goes, and equipment access set the price, which is why nobody honest quotes a driveway over the phone. Sealcoating a two-car driveway sits at the low end; a full-depth commercial repair at the high end. We measure on site, put the number in writing, and it does not move unless you change the scope.",
   },
   {

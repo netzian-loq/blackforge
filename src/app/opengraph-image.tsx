@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { services, site } from "@/lib/site";
 
-export const alt = `${site.name} — asphalt repair, paving and sealcoating in Middle Tennessee`;
+export const alt = `${site.name} — asphalt repair, paving and sealcoating in Wartrace, Tennessee`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -80,7 +80,9 @@ export default async function Image() {
             textTransform: "uppercase",
           }}
         >
-          <div style={{ display: "flex" }}>Middle Tennessee</div>
+          <div style={{ display: "flex" }}>
+            {site.address.locality}, {site.address.region}
+          </div>
           <div style={{ display: "flex", color: "#F2C230" }}>{site.phone.display}</div>
         </div>
       </div>

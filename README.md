@@ -4,9 +4,9 @@ Marketing site for an asphalt repair, paving and sealcoating contractor serving
 Middle Tennessee. Single page, built to convert phone calls and quote requests
 from homeowners and commercial property owners.
 
-> **Not ready to publish yet.** The name, phone number and email are real, but
-> the service area, credential claims and location are still assumptions, and
-> lead emails are not wired up. Work through
+> **Not ready to publish yet.** The name, phone, email and service area are
+> real. The credential claims and the distances on the coverage board are not
+> yet verified, and lead emails are not wired up. Work through
 > [Before you launch](#before-you-launch) first.
 
 ---
@@ -59,7 +59,7 @@ src/
     hero.tsx              Headline plus the cut-away section drawing
     pavement-section.tsx  The annotated cross-section
     depth-ladder.tsx      Services, ordered by how deep the failure goes
-    coverage-area.tsx     County and town board
+    coverage-area.tsx     Mileage board, towns by distance from base
     quote-form.tsx        Quote section and the form itself
     faq.tsx  site-footer.tsx  site-header.tsx
     structured-data.tsx   LocalBusiness and FAQPage JSON-LD
@@ -100,10 +100,10 @@ so the site would be complete — search for `PLACEHOLDER` and `VERIFY` in
       at first, then to the real domain. Canonical tags, the sitemap, robots.txt
       and the social cards all read it, so an unset value points every one of
       them at the placeholder host.
-- [ ] **Postal code and `geo` coordinates.** Both are set to downtown Nashville.
-      Move them to the actual base of operations — the 931 area code suggests
-      somewhere south or east of it, and `geo` is what Google uses to work out
-      which searches you are local to.
+- [ ] **`geo` coordinates and postal code.** Set to the centre of Wartrace and
+      37183. Nudge `geo` to the actual yard or shop — it is what Google reads to
+      decide which searches you show up in, and it also sets the centre of the
+      `GeoCircle` in the structured data.
 - [ ] **Wordmark descriptor.** The logo reads **Black Forge** over **Asphalt**.
       Change `site.wordmark.secondary` if you would rather it said something
       else, or matched signage or a truck wrap.
@@ -112,10 +112,15 @@ so the site would be complete — search for `PLACEHOLDER` and `VERIFY` in
       certificates of insurance and W-9s.
 - [ ] **Hours**, and the `openingHoursSpecification` in `structured-data.tsx`
       if they differ from Mon–Fri 7–6.
-- [ ] **Coverage.** Ten counties are listed, and I picked them, not you. They
-      lean toward Nashville while the phone number is a 931 number, so this is
-      the item most likely to be wrong. Remove any you will not drive to —
-      claiming an area you do not serve produces leads you have to turn down.
+- [ ] **Coverage distances.** The board lists seven towns inside roughly ten
+      miles of Wartrace, with mileages I estimated as straight-line distances,
+      not drive times. Check them on a map, and add or drop towns to match the
+      radius you actually work. `SERVICE_RADIUS_MILES` scales the bars, so keep
+      it at or above the largest distance in the list.
+
+      Christiana is 11 miles out and Beechgrove 10, so both sit at the edge of
+      the radius you described — drop them if that is further than you want to
+      go.
 - [ ] **Lead delivery** — see below. Without it the form works but only writes to
       the logs.
 - [ ] **Response promise.** `responsePromise` in `site.ts` promises a same-day

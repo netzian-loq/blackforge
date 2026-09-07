@@ -1,6 +1,6 @@
 import { BrandMark } from "./brand-mark";
 import { PhoneGlyph } from "./site-header";
-import { coverage, services, site } from "@/lib/site";
+import { counties, coverage, services, site } from "@/lib/site";
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
@@ -63,11 +63,14 @@ export function SiteFooter() {
             <h2 className="u-spec text-stripe">Serving</h2>
             <ul className="mt-4 space-y-2.5">
               {coverage.map((entry) => (
-                <li key={entry.county} className="text-[0.9375rem] text-aggregate-2">
-                  {entry.county} County
+                <li key={entry.town} className="text-[0.9375rem] text-aggregate-2">
+                  {entry.town}
                 </li>
               ))}
             </ul>
+            <p className="u-spec mt-5 text-[0.5625rem] leading-relaxed text-aggregate-2">
+              {counties.join(" · ")} counties
+            </p>
           </div>
         </div>
 
