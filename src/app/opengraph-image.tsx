@@ -40,7 +40,7 @@ export default async function Image() {
               textTransform: "uppercase",
             }}
           >
-            Back Forge Repair
+            {site.name}
           </div>
           <div
             style={{

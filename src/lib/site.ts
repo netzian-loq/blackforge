@@ -9,20 +9,28 @@
  */
 
 export const site = {
-  name: "Back Forge Repair",
-  legalName: "Back Forge Repair LLC", // VERIFY: exact registered entity name
+  name: "Black Forge",
+  legalName: "Black Forge", // VERIFY: exact registered entity name
+
+  /* Logo lockup. The trading name is just "Black Forge", so the second line
+     carries the descriptor — a service business needs the reader to know what
+     it does before they know who it is. */
+  wordmark: { primary: "Black Forge", secondary: "Asphalt" },
   tagline: "Asphalt repair, paving and sealcoating across Middle Tennessee",
   description:
     "Asphalt repair, paving, pothole repair and sealcoating for homeowners and commercial property owners across Middle Tennessee. Free on-site estimates, written quotes.",
 
-  // PLACEHOLDER — 555-01xx is the reserved fictional range, so this cannot ring
-  // a real person by accident. Swap for the real number before going live.
   phone: {
-    display: "(615) 555-0142",
-    href: "tel:+16155550142",
+    display: "(931) 224-2605",
+    href: "tel:+19312242605",
   },
-  email: "quotes@backforgerepair.com", // PLACEHOLDER
-  url: "https://backforgerepair.com", // PLACEHOLDER — must match the Vercel domain
+  email: "blackforgerepair@gmail.com",
+
+  /* Set NEXT_PUBLIC_SITE_URL in Vercel to the live domain (or, before the
+     domain is attached, the .vercel.app URL). Canonical tags, the sitemap,
+     robots.txt and the social cards all read from it, so leaving the fallback
+     in place on a live site points every one of them at the wrong host. */
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://blackforgerepair.com",
 
   // VERIFY: hours and the credential claims below are legal representations.
   hours: "Mon-Fri 7:00a - 6:00p, Sat by appointment",

@@ -19,10 +19,10 @@ export function SiteHeader() {
           <BrandMark className="h-7 w-7" />
           <span className="leading-none">
             <span className="u-display block text-[0.95rem] uppercase tracking-[0.02em] text-chalk">
-              Back Forge
+              {site.wordmark.primary}
             </span>
             <span className="u-spec block text-[0.5625rem] tracking-[0.28em] text-stripe">
-              Repair
+              {site.wordmark.secondary}
             </span>
           </span>
         </a>

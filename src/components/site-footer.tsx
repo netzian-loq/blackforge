@@ -15,9 +15,11 @@ export function SiteFooter() {
             <div className="flex items-center gap-3 text-chalk">
               <BrandMark className="h-8 w-8" />
               <span className="leading-none">
-                <span className="u-display block text-[1.0625rem] uppercase">Back Forge</span>
+                <span className="u-display block text-[1.0625rem] uppercase">
+                  {site.wordmark.primary}
+                </span>
                 <span className="u-spec block text-[0.5625rem] tracking-[0.28em] text-stripe">
-                  Repair
+                  {site.wordmark.secondary}
                 </span>
               </span>
             </div>

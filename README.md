@@ -1,11 +1,12 @@
-# Back Forge Repair
+# Black Forge
 
 Marketing site for an asphalt repair, paving and sealcoating contractor serving
 Middle Tennessee. Single page, built to convert phone calls and quote requests
 from homeowners and commercial property owners.
 
-> **This site is not ready to publish yet.** Contact details, credentials and
-> the domain are placeholders, and lead emails are not wired up. Work through
+> **Not ready to publish yet.** The name, phone number and email are real, but
+> the service area, credential claims and location are still assumptions, and
+> lead emails are not wired up. Work through
 > [Before you launch](#before-you-launch) first.
 
 ---
@@ -91,25 +92,30 @@ is sorted by how deep the damage goes rather than presented as four products.
 
 ## Before you launch
 
-Everything below is a placeholder. Search for `PLACEHOLDER` and `VERIFY` in
+Name, phone and email are real. Everything below is still an assumption I made
+so the site would be complete — search for `PLACEHOLDER` and `VERIFY` in
 `src/lib/site.ts`.
 
-- [ ] **Company name.** The site says **Back Forge Repair** throughout. The
-      project folder is named `black forge`, so confirm which is right — it is a
-      one-line change in `site.ts` if it should be Black Forge.
-- [ ] **Phone number.** Currently `(615) 555-0142`, in the reserved fictional
-      range so it cannot ring a real person by accident.
-- [ ] **Email**, **postal code**, and **`geo`** coordinates (set to downtown
-      Nashville; move them to the actual base of operations).
-- [ ] **`site.url`.** Must match the live domain or the canonical tag, sitemap,
-      robots and social cards will all point at the wrong host.
+- [ ] **`NEXT_PUBLIC_SITE_URL`.** Set it in Vercel — to the `.vercel.app` URL
+      at first, then to the real domain. Canonical tags, the sitemap, robots.txt
+      and the social cards all read it, so an unset value points every one of
+      them at the placeholder host.
+- [ ] **Postal code and `geo` coordinates.** Both are set to downtown Nashville.
+      Move them to the actual base of operations — the 931 area code suggests
+      somewhere south or east of it, and `geo` is what Google uses to work out
+      which searches you are local to.
+- [ ] **Wordmark descriptor.** The logo reads **Black Forge** over **Asphalt**.
+      Change `site.wordmark.secondary` if you would rather it said something
+      else, or matched signage or a truck wrap.
 - [ ] **Credential claims.** "Licensed and insured" and "Free on-site estimates"
       are legal representations. Confirm both, and confirm the FAQ answer about
       certificates of insurance and W-9s.
 - [ ] **Hours**, and the `openingHoursSpecification` in `structured-data.tsx`
       if they differ from Mon–Fri 7–6.
-- [ ] **Coverage.** Ten counties are listed. Remove any you do not actually serve
-      — claiming an area you will not drive to produces leads you have to refuse.
+- [ ] **Coverage.** Ten counties are listed, and I picked them, not you. They
+      lean toward Nashville while the phone number is a 931 number, so this is
+      the item most likely to be wrong. Remove any you will not drive to —
+      claiming an area you do not serve produces leads you have to turn down.
 - [ ] **Lead delivery** — see below. Without it the form works but only writes to
       the logs.
 - [ ] **Response promise.** `responsePromise` in `site.ts` promises a same-day
@@ -133,8 +139,12 @@ so a lead survives an email outage. Email delivery is off until you configure it
    Production, Preview and Development.
 3. For local work, copy them into `.env.local` (already gitignored).
 
-`QUOTE_FROM_EMAIL` must be on the domain you verified in Resend. The customer's
-own address is set as `reply_to`, so replying goes straight back to them.
+`QUOTE_FROM_EMAIL` must be on a domain verified in Resend — it cannot be the
+gmail address, since Resend will not send as a domain you do not control. With
+no domain yet, use Resend's `onboarding@resend.dev`, which delivers only to the
+address on the Resend account; that is enough to prove the flow works. Leads
+arrive with the customer's own address as `reply_to`, so replying goes straight
+back to them.
 
 If you would rather the leads land somewhere other than an inbox — a CRM, a
 spreadsheet, Slack — replace the body of `deliverLead()` in
@@ -146,7 +156,7 @@ where a lead goes.
 ### 1. GitHub
 
 ```bash
-git remote add origin git@github.com:YOUR-ORG/back-forge-repair.git
+git remote add origin https://github.com/netzian-loq/blackforge.git
 ```
 
 ```bash
@@ -157,8 +167,12 @@ git push -u origin main
 
 Import the repository at [vercel.com/new](https://vercel.com/new). Framework
 detection, build command and output directory are all automatic — this project
-intentionally has no `vercel.json`, because Next.js needs none. Add the
-environment variables from `.env.example` before the first production build.
+intentionally has no `vercel.json`, because Next.js needs none.
+
+The first deploy will succeed with no environment variables at all; the form
+will validate and log leads but send no email. Add them from `.env.example`
+when you are ready, starting with `NEXT_PUBLIC_SITE_URL` once Vercel has given
+you a URL.
 
 After that, pushes to `main` deploy to production and every pull request gets
 its own preview URL.
@@ -185,8 +199,8 @@ TLS certificate automatically once the records resolve.
 
 ### After the domain is live
 
-- Set `site.url` to the real domain and redeploy, so canonical URLs, the
-  sitemap and social cards are right.
+- Update `NEXT_PUBLIC_SITE_URL` to the real domain and redeploy, so canonical
+  URLs, the sitemap and social cards are right.
 - Submit `https://yourdomain.com/sitemap.xml` in Google Search Console.
 - Create the Google Business Profile — for a local contractor it drives more
   calls than the website does, and the site's `LocalBusiness` markup is built to
