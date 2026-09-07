@@ -27,16 +27,16 @@ const plexSans = IBM_Plex_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} — Asphalt Repair, Paving & Sealcoating in Wartrace, TN`,
+    default: `${site.name} — Asphalt Repair, Paving & Sealcoating in Bell Buckle, TN`,
     template: `%s — ${site.name}`,
   },
   description: site.description,
   applicationName: site.name,
   keywords: [
-    "asphalt repair Wartrace TN",
+    "asphalt repair Bell Buckle TN",
     "asphalt paving Shelbyville TN",
     "driveway paving Bedford County TN",
-    "pothole repair Bell Buckle TN",
+    "pothole repair Wartrace TN",
     "sealcoating Shelbyville Tennessee",
     "asphalt contractor Bedford County",
     "parking lot repair Middle Tennessee",
@@ -50,12 +50,12 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: site.url,
     siteName: site.name,
-    title: `${site.name} — Asphalt Repair & Paving in Wartrace, TN`,
+    title: `${site.name} — Asphalt Repair & Paving in Bell Buckle, TN`,
     description: site.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.name} — Asphalt Repair & Paving in Wartrace, TN`,
+    title: `${site.name} — Asphalt Repair & Paving in Bell Buckle, TN`,
     description: site.description,
   },
   robots: {

@@ -100,8 +100,8 @@ so the site would be complete — search for `PLACEHOLDER` and `VERIFY` in
       at first, then to the real domain. Canonical tags, the sitemap, robots.txt
       and the social cards all read it, so an unset value points every one of
       them at the placeholder host.
-- [ ] **`geo` coordinates and postal code.** Set to the centre of Wartrace and
-      37183. Nudge `geo` to the actual yard or shop — it is what Google reads to
+- [ ] **`geo` coordinates and postal code.** Set to the centre of Bell Buckle
+      and 37020. Nudge `geo` to the actual yard or shop — it is what Google reads to
       decide which searches you show up in, and it also sets the centre of the
       `GeoCircle` in the structured data.
 - [ ] **Logo resolution.** `public/logo.png` was cropped out of a 464x325
@@ -116,7 +116,7 @@ so the site would be complete — search for `PLACEHOLDER` and `VERIFY` in
 - [ ] **Hours**, and the `openingHoursSpecification` in `structured-data.tsx`
       if they differ from Mon–Fri 7–6.
 - [ ] **Coverage distances.** The board lists seven towns inside roughly ten
-      miles of Wartrace, with mileages I estimated as straight-line distances,
+      miles of Bell Buckle, with mileages I estimated as straight-line distances,
       not drive times. Check them on a map, and add or drop towns to match the
       radius you actually work. `SERVICE_RADIUS_MILES` scales the bars, so keep
       it at or above the largest distance in the list.

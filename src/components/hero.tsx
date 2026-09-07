@@ -9,7 +9,7 @@ export function Hero() {
         <div className="grid items-center gap-14 py-16 sm:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:py-24">
           <div>
             <p className="u-spec flex flex-wrap items-center gap-x-3 gap-y-1 text-stripe">
-              <span>Wartrace, Tennessee</span>
+              <span>Bell Buckle, Tennessee</span>
               <span aria-hidden="true" className="hidden text-aggregate-2 sm:inline">
                 /
               </span>
@@ -31,9 +31,9 @@ export function Hero() {
             </p>
 
             <p className="u-prose mt-4 max-w-xl text-[1.0625rem] text-aggregate-2 sm:text-lg">
-              We repair, pave and seal driveways, lots and private roads around Wartrace, Bell
-              Buckle and Shelbyville. Tell us what you are looking at and we will tell you how deep
-              it goes.
+              We repair, pave and seal driveways, lots and private roads around Bell Buckle,
+              Wartrace and Shelbyville. Tell us what you are looking at and we will tell you how
+              deep it goes.
             </p>
 
             <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">

@@ -22,9 +22,9 @@ export const site = {
     nativeSize: 274,
     alt: "Black Forge Asphalt Repair and Seal Coating",
   },
-  tagline: "Asphalt repair, paving and sealcoating in Wartrace and Bedford County",
+  tagline: "Asphalt repair, paving and sealcoating in Bell Buckle and Bedford County",
   description:
-    "Asphalt repair, paving, pothole repair and sealcoating for homeowners and commercial property owners in Wartrace, Bell Buckle, Shelbyville and the surrounding Bedford County area. Free on-site estimates, written quotes.",
+    "Asphalt repair, paving, pothole repair and sealcoating for homeowners and commercial property owners in Bell Buckle, Wartrace, Shelbyville and the surrounding Bedford County area. Free on-site estimates, written quotes.",
 
   phone: {
     display: "(931) 224-2605",
@@ -42,14 +42,14 @@ export const site = {
   hours: "Mon-Fri 7:00a - 6:00p, Sat by appointment",
   address: {
     // Service-area businesses may omit a street address; Google prefers city/region.
-    locality: "Wartrace",
+    locality: "Bell Buckle",
     region: "TN",
-    postalCode: "37183", // VERIFY
+    postalCode: "37020", // VERIFY
     country: "US",
   },
-  // Approximate centre of Wartrace. Google reads this to decide which searches
-  // the business is local to, so nudge it to the actual yard or shop.
-  geo: { lat: 35.5273, lng: -86.3336 }, // VERIFY
+  // Approximate centre of Bell Buckle. Google reads this to decide which
+  // searches the business is local to, so nudge it to the actual yard or shop.
+  geo: { lat: 35.5906, lng: -86.3547 }, // VERIFY
 
   credentials: [
     // Wording taken from the company's own flyer, which claims "fully insured"
@@ -148,27 +148,28 @@ export const services: readonly Service[] = [
 ] as const;
 
 /** Where the trucks start from. */
-export const base = { town: "Wartrace", county: "Bedford", region: "TN" } as const;
+export const base = { town: "Bell Buckle", county: "Bedford", region: "TN" } as const;
 
 /**
  * Towns inside the working radius, nearest first.
  *
- * VERIFY: `miles` are approximate straight-line distances from Wartrace, not
- * drive times. They are shown to the visitor as "about", so being a mile out is
- * harmless — but check them against a map before launch, and add or drop towns
- * to match the radius actually worked. `SERVICE_RADIUS_MILES` scales the bars
- * on the coverage board, so keep it at or above the largest distance listed.
+ * VERIFY: `miles` are approximate straight-line distances from Bell Buckle,
+ * not drive times, and they are my estimates rather than measured figures. They
+ * are shown to the visitor as "about", so being a mile out is harmless — but
+ * check them against a map before launch, and add or drop towns to match the
+ * radius actually worked. `SERVICE_RADIUS_MILES` scales the bars on the
+ * coverage board, so keep it at or above the largest distance listed.
  */
-export const SERVICE_RADIUS_MILES = 12;
+export const SERVICE_RADIUS_MILES = 13;
 
 export const coverage = [
-  { town: "Wartrace", county: "Bedford", miles: 0 },
-  { town: "Bell Buckle", county: "Bedford", miles: 5 },
-  { town: "Normandy", county: "Bedford", miles: 7 },
-  { town: "Shelbyville", county: "Bedford", miles: 9 },
-  { town: "Fosterville", county: "Rutherford", miles: 9 },
+  { town: "Bell Buckle", county: "Bedford", miles: 0 },
+  { town: "Wartrace", county: "Bedford", miles: 5 },
+  { town: "Fosterville", county: "Rutherford", miles: 6 },
+  { town: "Christiana", county: "Rutherford", miles: 8 },
   { town: "Beechgrove", county: "Coffee", miles: 10 },
-  { town: "Christiana", county: "Rutherford", miles: 11 },
+  { town: "Normandy", county: "Bedford", miles: 12 },
+  { town: "Shelbyville", county: "Bedford", miles: 12 },
 ] as const;
 
 /** Counties the radius touches, in the order they first appear above. */
@@ -179,7 +180,7 @@ export type PropertyType = (typeof propertyTypes)[number];
 
 export const faqs = [
   {
-    q: "What does asphalt work cost around Wartrace?",
+    q: "What does asphalt work cost around Bell Buckle?",
     a: "Square footage, how deep the damage goes, and equipment access set the price, which is why nobody honest quotes a driveway over the phone. Sealcoating a two-car driveway sits at the low end; a full-depth commercial repair at the high end. We measure on site, put the number in writing, and it does not move unless you change the scope.",
   },
   {
