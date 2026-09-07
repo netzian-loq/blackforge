@@ -60,6 +60,7 @@ src/
     pavement-section.tsx  The annotated cross-section
     depth-ladder.tsx      Services, ordered by how deep the failure goes
     coverage-area.tsx     Mileage board, towns by distance from base
+    on-the-road.tsx       Full-bleed truck band and the company strapline
     quote-form.tsx        Quote section and the form itself
     faq.tsx  site-footer.tsx  site-header.tsx
     structured-data.tsx   LocalBusiness and FAQPage JSON-LD
@@ -67,6 +68,19 @@ src/
     site.ts               ← all business content lives here
     quote.ts              Shared form state and options
 ```
+
+### Images
+
+`public/logo.png` is the circular badge, cut out of the supplied artwork with a
+circular alpha mask. `public/truck.jpg` is the truck scene from the top of the
+company flyer, cropped away from the rest of it.
+
+Only the truck scene is used, not the whole flyer. The lower two thirds repeat
+the phone number, the service list and the trust badges as pixels — invisible to
+search, unreadable to a screen reader, unreadable at any phone width, and its
+service list disagrees with the one on this site. All of that already exists on
+the page as real text. The flyer's strapline is quoted verbatim in
+`on-the-road.tsx`.
 
 **`src/lib/site.ts` is the file to edit for content.** Phone number, email,
 hours, services, counties, FAQs and the response promise all come from it, and

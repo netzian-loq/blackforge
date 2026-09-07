@@ -2,6 +2,7 @@ import { CoverageArea } from "@/components/coverage-area";
 import { DepthLadder } from "@/components/depth-ladder";
 import { Faq } from "@/components/faq";
 import { Hero } from "@/components/hero";
+import { OnTheRoad } from "@/components/on-the-road";
 import { QuoteSection } from "@/components/quote-form";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -23,6 +24,7 @@ export default function Home() {
         <Hero />
         <DepthLadder />
         <CoverageArea />
+        <OnTheRoad />
         <QuoteSection />
         <Faq />
       </main>
