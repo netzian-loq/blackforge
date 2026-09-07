@@ -1,4 +1,4 @@
-import { BrandMark } from "./brand-mark";
+import Image from "next/image";
 import { PhoneGlyph } from "./site-header";
 import { counties, coverage, services, site } from "@/lib/site";
 
@@ -12,17 +12,15 @@ export function SiteFooter() {
       <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8">
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr]">
           <div>
-            <div className="flex items-center gap-3 text-chalk">
-              <BrandMark className="h-8 w-8" />
-              <span className="leading-none">
-                <span className="u-display block text-[1.0625rem] uppercase">
-                  {site.wordmark.primary}
-                </span>
-                <span className="u-spec block text-[0.5625rem] tracking-[0.28em] text-stripe">
-                  {site.wordmark.secondary}
-                </span>
-              </span>
-            </div>
+            {/* Big enough here for the badge's own lettering to be readable,
+                so it stands alone. */}
+            <Image
+              src={site.logo.src}
+              alt={site.logo.alt}
+              width={120}
+              height={120}
+              className="h-[7.5rem] w-[7.5rem]"
+            />
             <p className="u-prose mt-5 max-w-sm text-[0.9375rem] text-aggregate-2">{site.tagline}.</p>
 
             <a

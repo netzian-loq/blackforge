@@ -1,4 +1,4 @@
-import { BrandMark } from "./brand-mark";
+import Image from "next/image";
 import { site } from "@/lib/site";
 
 const nav = [
@@ -16,14 +16,18 @@ export function SiteHeader() {
           className="flex shrink-0 items-center gap-2.5 text-chalk"
           aria-label={`${site.name} — back to top`}
         >
-          <BrandMark className="h-7 w-7" />
-          <span className="leading-none">
-            <span className="u-display block text-[0.95rem] uppercase tracking-[0.02em] text-chalk">
-              {site.wordmark.primary}
-            </span>
-            <span className="u-spec block text-[0.5625rem] tracking-[0.28em] text-stripe">
-              {site.wordmark.secondary}
-            </span>
+          {/* The badge carries its own type, but none of it is legible at this
+              size — the wordmark beside it does the naming. */}
+          <Image
+            src={site.logo.src}
+            alt=""
+            width={48}
+            height={48}
+            priority
+            className="h-12 w-12 shrink-0"
+          />
+          <span className="u-display text-[1.0625rem] uppercase leading-none tracking-[0.02em] text-chalk">
+            {site.name}
           </span>
         </a>
 

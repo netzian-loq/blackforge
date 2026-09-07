@@ -12,10 +12,16 @@ export const site = {
   name: "Black Forge",
   legalName: "Black Forge", // VERIFY: exact registered entity name
 
-  /* Logo lockup. The trading name is just "Black Forge", so the second line
-     carries the descriptor — a service business needs the reader to know what
-     it does before they know who it is. */
-  wordmark: { primary: "Black Forge", secondary: "Asphalt" },
+  /* The badge, cropped out of the supplied artwork. The source is 274px square,
+     so keep rendered sizes at or under 137px — at 2x that is exactly the native
+     resolution, and anything larger is an upscale. Each usage passes its own
+     width/height so the optimiser is asked for the size actually displayed.
+     See the README if a higher-resolution original turns up. */
+  logo: {
+    src: "/logo.png",
+    nativeSize: 274,
+    alt: "Black Forge Asphalt Repair and Seal Coating",
+  },
   tagline: "Asphalt repair, paving and sealcoating in Wartrace and Bedford County",
   description:
     "Asphalt repair, paving, pothole repair and sealcoating for homeowners and commercial property owners in Wartrace, Bell Buckle, Shelbyville and the surrounding Bedford County area. Free on-site estimates, written quotes.",
@@ -46,9 +52,11 @@ export const site = {
   geo: { lat: 35.5273, lng: -86.3336 }, // VERIFY
 
   credentials: [
-    "Licensed and insured", // VERIFY
+    // Wording taken from the company's own flyer, which claims "fully insured"
+    // rather than licensed. Do not upgrade this to "licensed" without a licence.
+    "Fully insured",
+    "Residential and commercial",
     "Free on-site estimates", // VERIFY
-    "Residential and commercial", // VERIFY
   ],
 } as const;
 

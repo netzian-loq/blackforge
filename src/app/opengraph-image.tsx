@@ -1,5 +1,13 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { services, site } from "@/lib/site";
+
+/* Read at build time and inlined: the renderer cannot fetch a relative path,
+   and the site has no absolute URL until it is deployed. */
+const logoDataUri = `data:image/png;base64,${readFileSync(
+  join(process.cwd(), "public", "logo.png"),
+).toString("base64")}`;
 
 export const alt = `${site.name} — asphalt repair, paving and sealcoating in Wartrace, Tennessee`;
 export const size = { width: 1200, height: 630 };
@@ -30,7 +38,11 @@ export default async function Image() {
           ))}
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 44 }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={logoDataUri} width={196} height={196} alt="" />
+
+          <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
           <div
             style={{
               display: "flex",
@@ -45,9 +57,9 @@ export default async function Image() {
           <div
             style={{
               display: "flex",
-              marginTop: 22,
-              fontSize: 84,
-              lineHeight: 1.02,
+              marginTop: 20,
+              fontSize: 66,
+              lineHeight: 1.04,
               fontWeight: 800,
               color: "#E8E6E1",
               letterSpacing: -2,
@@ -58,12 +70,13 @@ export default async function Image() {
           <div
             style={{
               display: "flex",
-              marginTop: 26,
-              fontSize: 27,
+              marginTop: 22,
+              fontSize: 24,
               color: "#9A9CA1",
             }}
           >
             {services.map((service) => service.name).join("  ·  ")}
+          </div>
           </div>
         </div>
 

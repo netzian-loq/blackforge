@@ -104,11 +104,14 @@ so the site would be complete — search for `PLACEHOLDER` and `VERIFY` in
       37183. Nudge `geo` to the actual yard or shop — it is what Google reads to
       decide which searches you show up in, and it also sets the centre of the
       `GeoCircle` in the structured data.
-- [ ] **Wordmark descriptor.** The logo reads **Black Forge** over **Asphalt**.
-      Change `site.wordmark.secondary` if you would rather it said something
-      else, or matched signage or a truck wrap.
-- [ ] **Credential claims.** "Licensed and insured" and "Free on-site estimates"
-      are legal representations. Confirm both, and confirm the FAQ answer about
+- [ ] **Logo resolution.** `public/logo.png` was cropped out of a 464x325
+      screenshot, so the badge is only 274px square. That is enough for the
+      header (48px) and footer (120px) at 2x, and for the favicon, but not for
+      anything larger. If whoever made the flyer still has the original, drop a
+      bigger PNG in at the same path and everything picks it up.
+- [ ] **Credential claims.** "Fully insured" and "Residential and commercial"
+      match the company flyer, so they are treated as confirmed. "Free on-site
+      estimates" is still mine — confirm it, along with the FAQ answer about
       certificates of insurance and W-9s.
 - [ ] **Hours**, and the `openingHoursSpecification` in `structured-data.tsx`
       if they differ from Mon–Fri 7–6.
