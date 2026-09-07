@@ -1,7 +1,7 @@
 # Black Forge
 
-Marketing site for an asphalt repair, paving and sealcoating contractor serving
-Middle Tennessee. Single page, built to convert phone calls and quote requests
+Marketing site for an asphalt repair, sealcoating and parking lot striping
+contractor serving Middle Tennessee. Single page, built to convert phone calls and quote requests
 from homeowners and commercial property owners.
 
 > **Not ready to publish yet.** The name, phone, email and service area are
@@ -114,8 +114,8 @@ so the site would be complete — search for `PLACEHOLDER` and `VERIFY` in
       at first, then to the real domain. Canonical tags, the sitemap, robots.txt
       and the social cards all read it, so an unset value points every one of
       them at the placeholder host.
-- [ ] **`geo` coordinates and postal code.** Set to the centre of Bell Buckle
-      and 37020. Nudge `geo` to the actual yard or shop — it is what Google reads to
+- [ ] **`geo` coordinates and postal code.** Set to the centre of Wartrace and
+      37183. Nudge `geo` to the actual yard or shop — it is what Google reads to
       decide which searches you show up in, and it also sets the centre of the
       `GeoCircle` in the structured data.
 - [ ] **Logo resolution.** `public/logo.png` was cropped out of a 464x325
@@ -130,7 +130,7 @@ so the site would be complete — search for `PLACEHOLDER` and `VERIFY` in
 - [ ] **Hours**, and the `openingHoursSpecification` in `structured-data.tsx`
       if they differ from Mon–Fri 7–6.
 - [ ] **Coverage distances.** The board lists seven towns inside roughly ten
-      miles of Bell Buckle, with mileages I estimated as straight-line distances,
+      miles of Wartrace, with mileages I estimated as straight-line distances,
       not drive times. Check them on a map, and add or drop towns to match the
       radius you actually work. `SERVICE_RADIUS_MILES` scales the bars, so keep
       it at or above the largest distance in the list.
@@ -138,6 +138,11 @@ so the site would be complete — search for `PLACEHOLDER` and `VERIFY` in
       Christiana is 11 miles out and Beechgrove 10, so both sit at the edge of
       the radius you described — drop them if that is further than you want to
       go.
+- [ ] **Services.** The ladder is ordered by how deep the work goes, so parking
+      lot striping sits first: it is paint on top of a sound surface, the
+      shallowest thing on the list. Paving has been removed entirely, which
+      matches the company flyer. If new driveways or resurfacing are in fact on
+      offer, that is a fifth entry at the deep end of `services`.
 - [ ] **Lead delivery** — see below. Without it the form works but only writes to
       the logs.
 - [ ] **Response promise.** `responsePromise` in `site.ts` promises a same-day

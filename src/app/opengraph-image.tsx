@@ -9,7 +9,7 @@ const logoDataUri = `data:image/png;base64,${readFileSync(
   join(process.cwd(), "public", "logo.png"),
 ).toString("base64")}`;
 
-export const alt = `${site.name} — asphalt repair, paving and sealcoating in Bell Buckle, Tennessee`;
+export const alt = `${site.name} — asphalt repair, sealcoating and parking lot striping in Wartrace, Tennessee`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

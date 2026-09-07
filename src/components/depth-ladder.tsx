@@ -87,8 +87,8 @@ export function DepthLadder() {
             to the fix.
           </h2>
           <p className="u-prose mt-6 text-[1.0625rem] text-aggregate-2">
-            These are not four products on a shelf. They are four points on one scale, from a
-            surface that only needs protecting to a base that has to be rebuilt. Find what you are
+            These are not four products on a shelf. They are four points on one scale, from paint
+            on a surface that is still sound to a base that has to be rebuilt. Find what you are
             looking at, and you have found the work it needs.
           </p>
         </div>

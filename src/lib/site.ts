@@ -22,9 +22,9 @@ export const site = {
     nativeSize: 274,
     alt: "Black Forge Asphalt Repair and Seal Coating",
   },
-  tagline: "Asphalt repair, paving and sealcoating in Bell Buckle and Bedford County",
+  tagline: "Asphalt repair, sealcoating and parking lot striping in Wartrace and Bedford County",
   description:
-    "Asphalt repair, paving, pothole repair and sealcoating for homeowners and commercial property owners in Bell Buckle, Wartrace, Shelbyville and the surrounding Bedford County area. Free on-site estimates, written quotes.",
+    "Asphalt repair, pothole repair, sealcoating and parking lot striping for homeowners and commercial property owners in Wartrace, Bell Buckle, Shelbyville and the surrounding Bedford County area. Free on-site estimates, written quotes.",
 
   phone: {
     display: "(931) 224-2605",
@@ -42,14 +42,14 @@ export const site = {
   hours: "Mon-Fri 7:00a - 6:00p, Sat by appointment",
   address: {
     // Service-area businesses may omit a street address; Google prefers city/region.
-    locality: "Bell Buckle",
+    locality: "Wartrace",
     region: "TN",
-    postalCode: "37020", // VERIFY
+    postalCode: "37183", // VERIFY
     country: "US",
   },
-  // Approximate centre of Bell Buckle. Google reads this to decide which
-  // searches the business is local to, so nudge it to the actual yard or shop.
-  geo: { lat: 35.5906, lng: -86.3547 }, // VERIFY
+  // Approximate centre of Wartrace. Google reads this to decide which searches
+  // the business is local to, so nudge it to the actual yard or shop.
+  geo: { lat: 35.5273, lng: -86.3336 }, // VERIFY
 
   credentials: [
     // Wording taken from the company's own flyer, which claims "fully insured"
@@ -61,9 +61,14 @@ export const site = {
 } as const;
 
 /**
- * Services ordered by how deep into the pavement the failure goes.
- * `reach` is the share of the cross-section the fix touches (0-1); it drives
- * both the gauge graphic and the severity colour.
+ * Services ordered by how deep into the pavement the work goes, from paint on a
+ * sound surface to a base that has to be rebuilt. `reach` is the share of the
+ * cross-section the work touches (0-1); it drives both the gauge graphic and
+ * the severity colour, so the order here is the order on the page.
+ *
+ * Striping sits first because it is the shallowest thing on the list — it goes
+ * on last, on top of everything else. Putting it at the deep end would make the
+ * gauge say something untrue.
  */
 export type Service = {
   slug: string;
@@ -78,20 +83,37 @@ export type Service = {
 
 export const services: readonly Service[] = [
   {
+    slug: "parking-lot-striping",
+    name: "Parking Lot Striping",
+    gauge: "Surface · paint",
+    reach: 0.05,
+    severity: 1,
+    symptom:
+      "Stalls nobody can make out, a fire lane that is not marked, or ADA spaces that would not pass an inspection.",
+    summary:
+      "The only work on this list that is not about damage. Striping goes on last, over a surface that is already sound, and it decides whether a lot reads as looked after or neglected before anyone gets out of the car. It is also the cheapest way to fit more vehicles into the same square footage.",
+    includes: [
+      "Re-stripe an existing layout",
+      "ADA stalls, access aisles and signage",
+      "Fire lanes, arrows, stop bars and numerals",
+      "New layout to fit more cars in the same space",
+    ],
+  },
+  {
     slug: "sealcoating",
     name: "Sealcoating",
     gauge: 'Surface · 0"',
     reach: 0.14,
-    severity: 1,
+    severity: 2,
     symptom:
       "It has gone from black to bone grey, the surface feels chalky, and loose stone comes up on your shoe.",
     summary:
       "A protective coat over pavement that is still structurally sound. It blocks UV, oxidation, fuel and water — the four things that turn a good driveway into a cracked one. The cheapest work you will ever do on asphalt, and the only kind that prevents the rest.",
     includes: [
       "Power clean, degrease and edge trim",
+      "Oil-spot primer so the sealer bonds",
       "Two-coat commercial-grade sealer",
       "Crack routing and hot-pour sealant on hairlines",
-      "Re-stripe parking stalls, ADA spaces and fire lanes",
     ],
   },
   {
@@ -99,7 +121,7 @@ export const services: readonly Service[] = [
     name: "Pothole Repair",
     gauge: '2" to 4" deep',
     reach: 0.42,
-    severity: 2,
+    severity: 3,
     symptom:
       "There is an open hole. The edges are crumbling, the aggregate is loose, and it grows every time it rains.",
     summary:
@@ -116,7 +138,7 @@ export const services: readonly Service[] = [
     name: "Asphalt Repair",
     gauge: "Full depth",
     reach: 0.74,
-    severity: 3,
+    severity: 4,
     symptom:
       "Alligator cracking, soft spots, water standing after a storm, or an area that visibly sinks when a wheel rolls over it.",
     summary:
@@ -128,48 +150,31 @@ export const services: readonly Service[] = [
       "Regrading to move water off the surface",
     ],
   },
-  {
-    slug: "paving",
-    name: "Paving",
-    gauge: "New surface",
-    reach: 1,
-    severity: 4,
-    symptom:
-      "Too much of it is gone to fix piece by piece, or there is nothing there yet and you are starting from dirt.",
-    summary:
-      "New driveways, lots and private roads, plus overlays where the base is still sound. We will tell you honestly which one you need: an overlay on a bad base is the most expensive mistake in this trade.",
-    includes: [
-      "New construction: grade, stone base, hot mix",
-      "Overlay on structurally sound pavement",
-      "Mill and replace where finished height is fixed",
-      "Grading and drainage so water leaves the surface",
-    ],
-  },
 ] as const;
 
 /** Where the trucks start from. */
-export const base = { town: "Bell Buckle", county: "Bedford", region: "TN" } as const;
+export const base = { town: "Wartrace", county: "Bedford", region: "TN" } as const;
 
 /**
  * Towns inside the working radius, nearest first.
  *
- * VERIFY: `miles` are approximate straight-line distances from Bell Buckle,
- * not drive times, and they are my estimates rather than measured figures. They
+ * VERIFY: `miles` are approximate straight-line distances from Wartrace, not
+ * drive times, and they are my estimates rather than measured figures. They
  * are shown to the visitor as "about", so being a mile out is harmless — but
  * check them against a map before launch, and add or drop towns to match the
  * radius actually worked. `SERVICE_RADIUS_MILES` scales the bars on the
  * coverage board, so keep it at or above the largest distance listed.
  */
-export const SERVICE_RADIUS_MILES = 13;
+export const SERVICE_RADIUS_MILES = 12;
 
 export const coverage = [
-  { town: "Bell Buckle", county: "Bedford", miles: 0 },
-  { town: "Wartrace", county: "Bedford", miles: 5 },
-  { town: "Fosterville", county: "Rutherford", miles: 6 },
-  { town: "Christiana", county: "Rutherford", miles: 8 },
+  { town: "Wartrace", county: "Bedford", miles: 0 },
+  { town: "Bell Buckle", county: "Bedford", miles: 5 },
+  { town: "Normandy", county: "Bedford", miles: 7 },
+  { town: "Shelbyville", county: "Bedford", miles: 9 },
+  { town: "Fosterville", county: "Rutherford", miles: 9 },
   { town: "Beechgrove", county: "Coffee", miles: 10 },
-  { town: "Normandy", county: "Bedford", miles: 12 },
-  { town: "Shelbyville", county: "Bedford", miles: 12 },
+  { town: "Christiana", county: "Rutherford", miles: 11 },
 ] as const;
 
 /** Counties the radius touches, in the order they first appear above. */
@@ -180,20 +185,20 @@ export type PropertyType = (typeof propertyTypes)[number];
 
 export const faqs = [
   {
-    q: "What does asphalt work cost around Bell Buckle?",
+    q: "What does asphalt work cost around Wartrace?",
     a: "Square footage, how deep the damage goes, and equipment access set the price, which is why nobody honest quotes a driveway over the phone. Sealcoating a two-car driveway sits at the low end; a full-depth commercial repair at the high end. We measure on site, put the number in writing, and it does not move unless you change the scope.",
   },
   {
-    q: "How do I know whether to seal it or repave it?",
-    a: "Look at the crack pattern. Straight, isolated cracks and grey colour mean the base is fine, so sealing and crack filling will hold. Interconnected cracks in a scale pattern, soft spots, or water standing after a storm mean the base has failed, and no amount of surface work will fix that. If you are unsure, this is exactly what the free assessment is for.",
+    q: "How do I know whether to seal it or repair it?",
+    a: "Look at the crack pattern. Straight, isolated cracks and grey colour mean the base is fine, so sealing and crack filling will hold. Interconnected cracks in a scale pattern, soft spots, or water standing after a storm mean the base has failed, and no amount of surface work will fix that — that area has to be cut out and rebuilt. If you are unsure, this is exactly what the free assessment is for.",
   },
   {
-    q: "What time of year can you pave in Tennessee?",
-    a: "Hot mix needs ground temperature above roughly 50°F and rising, which in Middle Tennessee usually means late March through early November. Sealcoating needs a dry stretch and overnight lows above 50°F, so it runs May through September. Winter is for emergency pothole work and getting on next season's schedule early.",
+    q: "What time of year can you do the work?",
+    a: "Hot mix for patching and full-depth repair needs ground temperature above roughly 50°F and rising, which in Middle Tennessee usually means late March through early November. Sealcoating needs a dry stretch and overnight lows above 50°F, so it runs May through September, and striping wants much the same warmth on dry pavement. Winter is for emergency pothole work and getting on next season's schedule early.",
   },
   {
     q: "How soon can I drive on it?",
-    a: "Sealcoating: stay off for 24 hours, 48 in high heat. New asphalt: 24 to 48 hours before driving on it. For the first 30 days avoid parking in the same spot every night, and do not turn your wheels while stopped. Fresh asphalt marks easily until it fully cures.",
+    a: "Sealcoating: stay off for 24 hours, 48 in high heat. Fresh striping: a few hours until it is dry to the touch, and try not to park on it the first night. Patching and full-depth repair: 24 to 48 hours before driving on it. For the first 30 days on new asphalt avoid parking in the same spot every night, and do not turn your wheels while stopped — it marks easily until it fully cures.",
   },
   {
     q: "Do you work with property managers and HOAs?",
