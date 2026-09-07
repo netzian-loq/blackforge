@@ -1,36 +1,204 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Back Forge Repair
 
-## Getting Started
+Marketing site for an asphalt repair, paving and sealcoating contractor serving
+Middle Tennessee. Single page, built to convert phone calls and quote requests
+from homeowners and commercial property owners.
 
-First, run the development server:
+> **This site is not ready to publish yet.** Contact details, credentials and
+> the domain are placeholders, and lead emails are not wired up. Work through
+> [Before you launch](#before-you-launch) first.
+
+---
+
+## Stack
+
+| Choice                | Why                                                                                                                 |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| **Next.js 16** (App Router) | Every route prerenders to static HTML, which is what local SEO rewards. First-class on Vercel with zero config. |
+| **React 19**          | Server Components keep the shipped JS to the form and the scroll reveals — nothing else needs a client bundle.        |
+| **Tailwind CSS v4**   | Design tokens live in `@theme` in one file, so the palette is a single source of truth rather than scattered hexes.   |
+| **TypeScript**        | Business data is typed, so a malformed service or county breaks the build instead of the page.                        |
+| **No UI library**     | The design is specific to this trade. A component kit would have cost more in overrides than it saved.                |
+
+Runtime dependencies are `next`, `react` and `react-dom`. Nothing else — email
+delivery calls the Resend REST API with `fetch`, so there is no SDK in the bundle.
+
+## Running it
+
+```bash
+npm install
+```
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint
+```
 
-## Learn More
+## Where things live
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+  app/
+    layout.tsx            Fonts, metadata, viewport
+    page.tsx              Section order for the homepage
+    actions.ts            Server action: validates and delivers quote requests
+    globals.css           Design tokens and the shared utility classes
+    sitemap.ts robots.ts  Generated from site.url
+    opengraph-image.tsx   Social card, rendered at build time
+  components/
+    hero.tsx              Headline plus the cut-away section drawing
+    pavement-section.tsx  The annotated cross-section
+    depth-ladder.tsx      Services, ordered by how deep the failure goes
+    coverage-area.tsx     County and town board
+    quote-form.tsx        Quote section and the form itself
+    faq.tsx  site-footer.tsx  site-header.tsx
+    structured-data.tsx   LocalBusiness and FAQPage JSON-LD
+  lib/
+    site.ts               ← all business content lives here
+    quote.ts              Shared form state and options
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**`src/lib/site.ts` is the file to edit for content.** Phone number, email,
+hours, services, counties, FAQs and the response promise all come from it, and
+they feed the page copy, the footer, the sitemap and the structured data at the
+same time. You should not need to touch a component to change business details.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Design notes
 
-## Deploy on Vercel
+The page is built on one idea: **asphalt fails from the bottom up**, so the work
+is sorted by how deep the damage goes rather than presented as four products.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- The hero cross-section teaches the layers once. Every service then carries a
+  depth gauge whose bands match that drawing, so a reading points back to
+  something the visitor has already seen.
+- Severity colour runs from striping yellow (routine maintenance) to ember (the
+  base is gone). That colour carries information, so it is never used for
+  decoration.
+- Type is **Overpass**, drawn from FHWA Highway Gothic — the lettering on US road
+  signs — with IBM Plex Sans for body copy and Overpass Mono for specs.
+- Every text and background pair was checked against WCAG AA. The `aggregate`
+  grey only reaches 3.6:1 on asphalt, so it is reserved for rules and graphics;
+  `aggregate-2` and `ink-soft` are the text greys for dark and light sections.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Before you launch
+
+Everything below is a placeholder. Search for `PLACEHOLDER` and `VERIFY` in
+`src/lib/site.ts`.
+
+- [ ] **Company name.** The site says **Back Forge Repair** throughout. The
+      project folder is named `black forge`, so confirm which is right — it is a
+      one-line change in `site.ts` if it should be Black Forge.
+- [ ] **Phone number.** Currently `(615) 555-0142`, in the reserved fictional
+      range so it cannot ring a real person by accident.
+- [ ] **Email**, **postal code**, and **`geo`** coordinates (set to downtown
+      Nashville; move them to the actual base of operations).
+- [ ] **`site.url`.** Must match the live domain or the canonical tag, sitemap,
+      robots and social cards will all point at the wrong host.
+- [ ] **Credential claims.** "Licensed and insured" and "Free on-site estimates"
+      are legal representations. Confirm both, and confirm the FAQ answer about
+      certificates of insurance and W-9s.
+- [ ] **Hours**, and the `openingHoursSpecification` in `structured-data.tsx`
+      if they differ from Mon–Fri 7–6.
+- [ ] **Coverage.** Ten counties are listed. Remove any you do not actually serve
+      — claiming an area you will not drive to produces leads you have to refuse.
+- [ ] **Lead delivery** — see below. Without it the form works but only writes to
+      the logs.
+- [ ] **Response promise.** `responsePromise` in `site.ts` promises a same-day
+      reply and a 48-hour visit. Make it true or change it.
+
+Deliberately **not** included: no invented review counts, star ratings, years in
+business, or job numbers. Fabricated `aggregateRating` markup is a Google
+structured-data violation and a fast way to lose rich results — add it only once
+there are real reviews to point at.
+
+## Wire up lead delivery
+
+The form validates on the server, blocks bots with a honeypot and a
+time-to-fill trap, and always writes the full lead to the function logs first,
+so a lead survives an email outage. Email delivery is off until you configure it.
+
+1. Create a [Resend](https://resend.com) account and verify the sending domain.
+   (`vercel integration add resend` will provision it through the Marketplace
+   and set `RESEND_API_KEY` for you.)
+2. Add the three variables from `.env.example` to the Vercel project, for
+   Production, Preview and Development.
+3. For local work, copy them into `.env.local` (already gitignored).
+
+`QUOTE_FROM_EMAIL` must be on the domain you verified in Resend. The customer's
+own address is set as `reply_to`, so replying goes straight back to them.
+
+If you would rather the leads land somewhere other than an inbox — a CRM, a
+spreadsheet, Slack — replace the body of `deliverLead()` in
+[src/app/actions.ts](src/app/actions.ts). It is the only function that knows
+where a lead goes.
+
+## Deploying
+
+### 1. GitHub
+
+```bash
+git remote add origin git@github.com:YOUR-ORG/back-forge-repair.git
+```
+
+```bash
+git push -u origin main
+```
+
+### 2. Vercel
+
+Import the repository at [vercel.com/new](https://vercel.com/new). Framework
+detection, build command and output directory are all automatic — this project
+intentionally has no `vercel.json`, because Next.js needs none. Add the
+environment variables from `.env.example` before the first production build.
+
+After that, pushes to `main` deploy to production and every pull request gets
+its own preview URL.
+
+### 3. Spaceship DNS
+
+Add the domain in **Vercel → Project → Settings → Domains** first. Vercel then
+shows the exact records to use — copy them from there rather than from any
+guide, including this one, since the values change.
+
+Then in Spaceship, either:
+
+- **Delegate the whole domain (simplest).** Set the domain's nameservers to the
+  Vercel nameservers shown in the dashboard. Vercel handles the records and the
+  certificate. Note that this moves *all* DNS for the domain, so recreate any
+  existing email (MX, SPF, DKIM, DMARC) records in Vercel first, or email will
+  stop being delivered.
+- **Keep DNS at Spaceship.** Leave the nameservers alone and add the `A` record
+  for the apex and the `CNAME` for `www` that Vercel displays. Email records
+  stay untouched. This is the safer option if the domain already handles mail.
+
+Propagation is usually minutes but can take up to 48 hours. Vercel issues the
+TLS certificate automatically once the records resolve.
+
+### After the domain is live
+
+- Set `site.url` to the real domain and redeploy, so canonical URLs, the
+  sitemap and social cards are right.
+- Submit `https://yourdomain.com/sitemap.xml` in Google Search Console.
+- Create the Google Business Profile — for a local contractor it drives more
+  calls than the website does, and the site's `LocalBusiness` markup is built to
+  agree with it. Keep the name, phone and address identical in both places.
+- Check the structured data with the
+  [Rich Results Test](https://search.google.com/test/rich-results).
+
+## Accessibility
+
+Semantic landmarks, a skip link, visible focus on every interactive element,
+labelled form fields with server-side errors wired through `aria-describedby`,
+an error summary that takes focus on failure, and `prefers-reduced-motion`
+honoured for the scroll reveals. The FAQ uses native `<details>`, so it works
+before JavaScript loads — as does the quote form, which is a progressively
+enhanced server action.
